@@ -4,82 +4,70 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class FileIO {
 
 	private static final File userObj = new File("./user.obj");
+	private static List<User> userList = new ArrayList<>();
+	
+	public synchronized static void readUserList() throws IOException {
+		ObjectInputStream in = null;
+		
+		try {
+			in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));
+			userList = (List<User>) in.readObject();
+		} catch (FileNotFoundException e) {
+			userObj.createNewFile();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public synchronized static void updateUser(User user) throws IOException {
-		ObjectOutputStream 	out = null;
-		ObjectInputStream 	in = null;
-		try {
-			out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
-			in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));
-			
-			User line;
-			try {
-				while((line = (User) in.readObject()) != null) {
-					if(line.id == user.id) {
-						line = user;
-					}
-					out.writeObject(line);
-				}
-				out.flush();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+		for(int i = 0; i < userList.size(); i++) {
+			if((userList.get(i).id).equals(user.id)) {
+				userList.set(i, user);
 			}
-		} finally {
-			if (in != null) in.close();
-			if (out != null) out.close();
 		}
 	}
 	
 	public synchronized static boolean addUser(User user) throws IOException {
-		ObjectOutputStream 	out = null;
-		ObjectInputStream 	in = null;
-		try {
-			out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj, true)));
-			in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));
-			
-			User line;
-			try {
-				while((line = (User) in.readObject()) != null) {
-					if(line.id == user.id) {
-						return false;
-					}
-				}
-				out.writeObject(user);
-				out.flush();
-				return true;
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		} finally {
-			if (in != null) in.close();
-			if (out != null) out.close();
+		Iterator<User> it = userList.iterator();
+		while(it.hasNext()) {
+			if(((User) it.next()).id.equalsIgnoreCase(user.id)) return false;
 		}
-		return false;
+		userList.add(user);
+		ObjectOutputStream out = null;
+		out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
+		
+		out.writeObject(userList);
+		
+		out.close();
+		
+		System.out.println("회원가입 성공");
+		return true;
 	}
 	
 	public synchronized static User login(String id, String pw) throws IOException {
-		ObjectInputStream in = null;
-			try {
-				in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));User line;
-				while((line = (User) in.readObject()) != null) {
-					if(line.id == id && line.pw == pw) {
-						return line;
-					}
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} finally {
-				if (in != null) in.close();
+		Iterator<User> it = userList.iterator();
+		User line;
+		while(it.hasNext()) {
+			line = (User) it.next();
+			if(line.id.equalsIgnoreCase(id) && line.pw.equalsIgnoreCase(pw)) {
+				System.out.println("로그인 성공");
+				return line;
 			}
-			return null;
+		}
+		return null;
 	}
 	
 	public synchronized static void logout(User user) throws IOException {

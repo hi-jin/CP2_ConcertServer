@@ -1,6 +1,8 @@
 package authenticate;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
 
 	String 	name;
 	String 	id;
