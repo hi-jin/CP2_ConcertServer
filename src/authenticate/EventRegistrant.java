@@ -1,30 +1,29 @@
 package authenticate;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 import concertManagement.Concert;
 
 public class EventRegistrant extends Customer {
 
-	ArrayList<Concert> registeredConcertList;
-	ArrayList<Concert> concertsWaitingForApproval;
-	ArrayList<Concert> concertsWaitingForCancel;
+	Vector<Concert> registeredConcertList;
+	Vector<Concert> concertsWaitingForApproval;
+	Vector<Concert> concertsWaitingForCancel;
 	
 	public EventRegistrant(String name, String id, String pw, String contact) {
 		super(name, id, pw, contact, Type.EventRegistrant);
 		
-		registeredConcertList = new ArrayList<>();
-		concertsWaitingForApproval = new ArrayList<>();
+		registeredConcertList = new Vector<>();
+		concertsWaitingForApproval = new Vector<>();
 	}
 	
 	public EventRegistrant(String name, String id, String pw, String contact, int balance) {
 		super(name, id, pw, contact, Type.EventRegistrant, balance);
 
-		registeredConcertList = new ArrayList<>();
-		concertsWaitingForApproval = new ArrayList<>();
+		concertsWaitingForApproval = new Vector<>();
 	}
 	
-	public ArrayList<Concert> requestRegistration(Concert concert) {
+	public Vector<Concert> requestRegistration(Concert concert) {
 		if(balance > 500) {
 			concertsWaitingForApproval.add(concert);
 		} else {
@@ -33,7 +32,7 @@ public class EventRegistrant extends Customer {
 		return concertsWaitingForApproval;
 	}
 	
-	public ArrayList<Concert> cancleRequest(Concert concert) {
+	public Vector<Concert> cancleRequest(Concert concert) {
 		if(concertsWaitingForApproval.contains(concert) ) {
 			concertsWaitingForApproval.remove(concert);
 		}

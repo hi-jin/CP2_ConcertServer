@@ -38,6 +38,9 @@ public class DataListener implements Runnable {
 //					inputLine = addAudience/name/id/pw/contact
 //					TODO
 //					user = FileIO.addUser(new Audience());
+				} else if(command[0].equalsIgnoreCase("addManager")) {
+					user = new Manager(command[1], command[2], command[3], command[4]);
+					FileIO.addUser(user);
 				} else if(command[0].equalsIgnoreCase("addEventRegistrant")) {
 //					inputLine = addEventRegistrant/name/id/pw/contact
 					user = new EventRegistrant(command[1], command[2], command[3], command[4]);

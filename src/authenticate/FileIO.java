@@ -9,14 +9,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 public class FileIO {
 
 	private static final File userObj = new File("./user.obj");
-	private static List<User> userList = new ArrayList<>();
+	private static List<User> userList = new Vector<>();
+	
+	public static List<User> getUserList() {
+		return userList;
+	}
 	
 	public synchronized static void readUserList() throws IOException {
 		ObjectInputStream in = null;
@@ -27,7 +31,6 @@ public class FileIO {
 		} catch (FileNotFoundException e) {
 			userObj.createNewFile();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -57,7 +60,7 @@ public class FileIO {
 		return true;
 	}
 	
-	public synchronized static User login(String id, String pw) throws IOException {
+	public static User login(String id, String pw) throws IOException {
 		Iterator<User> it = userList.iterator();
 		User line;
 		while(it.hasNext()) {
