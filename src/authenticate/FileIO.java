@@ -46,7 +46,10 @@ public class FileIO {
 	public synchronized static boolean addUser(User user) throws IOException {
 		Iterator<User> it = userList.iterator();
 		while(it.hasNext()) {
-			if(((User) it.next()).id.equalsIgnoreCase(user.id)) return false;
+			if(((User) it.next()).id.equalsIgnoreCase(user.id)) {
+				System.out.println(Thread.currentThread().getName() + " 회원가입 실패");
+				return false;
+			}
 		}
 		userList.add(user);
 		ObjectOutputStream out = null;
@@ -56,7 +59,7 @@ public class FileIO {
 		
 		out.close();
 		
-		System.out.println("회원가입 성공");
+		System.out.println(Thread.currentThread().getName() + " 회원가입 성공");
 		return true;
 	}
 	
@@ -66,14 +69,16 @@ public class FileIO {
 		while(it.hasNext()) {
 			line = (User) it.next();
 			if(line.id.equalsIgnoreCase(id) && line.pw.equalsIgnoreCase(pw)) {
-				System.out.println("로그인 성공");
+				System.out.println(Thread.currentThread().getName() + " 로그인 성공");
 				return line;
 			}
 		}
+		System.out.println(Thread.currentThread().getName() + " 로그인 실패");
 		return null;
 	}
 	
 	public synchronized static void logout(User user) throws IOException {
 		updateUser(user);
+		System.out.println(Thread.currentThread().getName() + " 로그아웃 성공");
 	}
 }
