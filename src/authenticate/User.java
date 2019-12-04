@@ -21,4 +21,24 @@ public abstract class User implements Serializable {
 	public String toString() {
 		return "user name : " + name + "\nuser type : " + type + "\nid : " + id + "\npw : " + pw + "\nphone-number : " + contact;
 	}
+	
+	public String getType() {
+		return type.toString();
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public String getContact() {
+		return contact;
+	}
 }

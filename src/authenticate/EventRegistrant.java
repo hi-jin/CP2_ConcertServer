@@ -40,4 +40,16 @@ public class EventRegistrant extends Customer {
 		
 		return concertsWaitingForCancel;
 	}
+	
+	public Vector<Concert> getRegisteredConcertList() {
+		return registeredConcertList;
+	}
+	
+	public Vector<Concert> getConcertsWaitingForApproval() {
+		return concertsWaitingForApproval;
+	}
+	
+	public Vector<Concert> getConcertsWaitingForCancel() {
+		return concertsWaitingForCancel;
+	}
 }
