@@ -11,8 +11,7 @@ public class EventRegistrant extends Customer {
 	Vector<Concert> concertsWaitingForCancel;
 	
 	public EventRegistrant(String name, String id, String pw, String contact) {
-		super(name, id, pw, contact, Type.EventRegistrant);
-		this.balance = 10000;
+		super(name, id, pw, contact, Type.EventRegistrant, 10000);
 		registeredConcertList = new Vector<>();
 		concertsWaitingForApproval = new Vector<>();
 	}

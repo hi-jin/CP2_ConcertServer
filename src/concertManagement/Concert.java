@@ -45,6 +45,6 @@ public class Concert {
 	}
 	
 	public String toString() {
-		return "title : " + this.title + "description : " + this.description + "\ndate : " + this.date + "\nseat : " + this.seat;
+		return "title : " + this.title + "\ndescription : " + this.description + "\ndate : " + this.date + "\nseat : " + this.seat;
 	}
 }
