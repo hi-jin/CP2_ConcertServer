@@ -79,6 +79,10 @@ public class FileIO {
 	
 	public synchronized static void logout(User user) throws IOException {
 		updateUser(user);
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
+		out.writeObject(userList);
+		out.close();
+		
 		System.out.println(Thread.currentThread().getName() + " 로그아웃 성공");
 	}
 }

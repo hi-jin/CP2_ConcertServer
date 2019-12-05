@@ -29,15 +29,17 @@ public class EventRegistrant extends Customer {
 		} else {
 			return null;
 		}
+		System.out.println("등록 요청\n" + concert);
 		return concertsWaitingForApproval;
 	}
 	
-	public Vector<Concert> cancleRequest(Concert concert) {
+	public Vector<Concert> cancelRequest(Concert concert) {
 		if(concertsWaitingForApproval.contains(concert) ) {
 			concertsWaitingForApproval.remove(concert);
+		} else {
+			concertsWaitingForCancel.add(concert);
 		}
-		concertsWaitingForCancel.add(concert);
-		
+		System.out.println("취소 요청\n" + concert);
 		return concertsWaitingForCancel;
 	}
 	

@@ -36,6 +36,7 @@ public class Manager extends User{
 				break;
 			}
 		}
+		System.out.println("추가 완료\n" + concert);
 		return this.registeredConcertList;
 	}
 	
@@ -54,6 +55,7 @@ public class Manager extends User{
 				break;
 			}
 		}
+		System.out.println("취소 완료\n" + concert);
 		return this.registeredConcertList;
 	}
 	
