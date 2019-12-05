@@ -59,8 +59,9 @@ public class DataListener implements Runnable {
 						user = FileIO.login(command[1], command[2]);
 						if(user == null) {
 							out.write(-1); // 로그인 실패할 경우 -1을 보낸다.
+							System.out.println("로그인 실패");
 						} else {
-							out.println("로그인\n" + user.getName() + "/" + user.getId() + "/" + user.getContact() + "/" + user.getType());
+							System.out.println("로그인\n" + user.getName() + "/" + user.getId() + "/" + user.getContact() + "/" + user.getType());
 							if(user.getType().equals(Type.ServerManager.toString())) {
 								manager = (Manager) user;
 //								TODO
