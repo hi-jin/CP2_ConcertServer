@@ -105,6 +105,7 @@ public class DataListener implements Runnable {
 						manager.addConcert(concert);
 					}
 				} else if(user.getType().equals(Type.EventRegistrant.toString())) {
+					System.out.println("타입 인식");
 					if(command[0].equalsIgnoreCase("getRegisteredConcertList")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForApproval")) {
@@ -116,6 +117,7 @@ public class DataListener implements Runnable {
 						Concert concert = new Concert(
 												command[1], command[2], command[3],
 												new Seat(Integer.parseInt(command[4])));
+						System.out.println("request");
 						eventRegistrant.requestRegistration(concert);
 						out.println(1);
 					} else if(command[0].equalsIgnoreCase("cancelRequest")) {
