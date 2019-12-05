@@ -1,4 +1,4 @@
-package authenticate;
+	package authenticate;
 
 import java.util.Vector;
 import java.util.Iterator;
@@ -33,10 +33,10 @@ public class Manager extends User{
 				index = this.concertsWaitingForApproval.indexOf(concert);
 				this.concertsWaitingForApproval.remove(index);
 				this.registeredConcertList.add(concert);
+				System.out.println("추가 완료\n" + concert);
 				break;
 			}
 		}
-		System.out.println("추가 완료\n" + concert);
 		return this.registeredConcertList;
 	}
 	
