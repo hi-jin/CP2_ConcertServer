@@ -12,7 +12,7 @@ public class EventRegistrant extends Customer {
 	
 	public EventRegistrant(String name, String id, String pw, String contact) {
 		super(name, id, pw, contact, Type.EventRegistrant);
-		balance = 10000;
+		this.balance = 10000;
 		registeredConcertList = new Vector<>();
 		concertsWaitingForApproval = new Vector<>();
 	}
@@ -27,7 +27,7 @@ public class EventRegistrant extends Customer {
 		if(balance > 500) {
 			concertsWaitingForApproval.add(concert);
 		} else {
-			System.out.println("잔액부족");
+			System.out.println("잔액부족" + balance);
 			return null;
 		}
 		System.out.println("등록 요청\n" + concert);
