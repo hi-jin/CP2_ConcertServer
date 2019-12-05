@@ -18,18 +18,18 @@ public class DataListener implements Runnable {
 
 	Socket 			clientSocket;
 	
-	User 			user;
-	Manager 		manager;
-	EventRegistrant eventRegistrant;
-//	TODO
-//	Audience 		audience;
-	
 	public DataListener(Socket clientSocket) {
 		this.clientSocket = clientSocket;
 	}
 	
 	public void run() {
 		try {
+			User 			user = null;
+			Manager 		manager = null;
+			EventRegistrant eventRegistrant = null;
+//			TODO
+//			Audience 		audience = null;
+			
 			PrintStream out = new PrintStream(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(
 								new InputStreamReader(
