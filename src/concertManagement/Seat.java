@@ -20,4 +20,12 @@ public class Seat {
 	public String toString() {
 		return "numberOfSeat : " + this.numberOfSeat;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Seat s = (Seat) o;
+		if(this.numberOfSeat == s.numberOfSeat)
+			return true;
+		return false;
+	}
 }

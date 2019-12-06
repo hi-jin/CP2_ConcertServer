@@ -47,4 +47,13 @@ public class Concert {
 	public String toString() {
 		return "title : " + this.title + "\ndescription : " + this.description + "\ndate : " + this.date + "\nseat : " + this.seat;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Concert c = (Concert) o;
+		if(this.title.equals(c.title) && this.description.equals(c.description) && this.date.equals(c.date) && this.seat.equals(c.seat))
+			return true;
+		return false;
+	}
+	
 }

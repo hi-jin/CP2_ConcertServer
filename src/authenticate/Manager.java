@@ -22,10 +22,12 @@ public class Manager extends User{
 	}
 
 	public Vector<Concert> addConcert(Concert concert) {
+		this.getWaitingList();
 		Iterator<EventRegistrant> it = eventRegistrantList.iterator();
 		int index = -1;
 		while(it.hasNext()) {
 			EventRegistrant eventRegistrant = it.next();
+			System.out.println(eventRegistrant);
 			if((index = eventRegistrant.concertsWaitingForApproval.indexOf(concert)) != -1) {
 				eventRegistrant.concertsWaitingForApproval.remove(index);
 				eventRegistrant.registeredConcertList.add(concert);
@@ -34,10 +36,12 @@ public class Manager extends User{
 				this.concertsWaitingForApproval.remove(index);
 				this.registeredConcertList.add(concert);
 				System.out.println("추가 완료\n" + concert);
-				break;
+				return this.registeredConcertList;
 			}
 		}
-		return this.registeredConcertList;
+		System.out.println("index : " + index);
+		System.out.println("콘서트 추가 오류");
+		return null;
 	}
 	
 	public Vector<Concert> cancelConcert(Concert concert) {
@@ -52,10 +56,10 @@ public class Manager extends User{
 				index = this.concertsWaitingForCancel.indexOf(concert);
 				this.concertsWaitingForCancel.remove(index);
 				this.registeredConcertList.remove(concert);
+				System.out.println("취소 완료\n" + concert);
 				break;
 			}
 		}
-		System.out.println("취소 완료\n" + concert);
 		return this.registeredConcertList;
 	}
 	

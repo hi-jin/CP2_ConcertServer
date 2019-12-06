@@ -1,12 +1,8 @@
 package serverMain;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 
@@ -79,12 +75,15 @@ public class DataListener implements Runnable {
 					} else if(command[0].equalsIgnoreCase("addManager")) {
 						user = new Manager(command[1], command[2], command[3], command[4]);
 						FileIO.addUser(user);
+						manager = (Manager) user;
 					} else if(command[0].equalsIgnoreCase("addEventRegistrant")) {
 						// inputLine = addEventRegistrant/name/id/pw/contact
 						user = new EventRegistrant(command[1], command[2], command[3], command[4]);
 						FileIO.addUser(user);
+						eventRegistrant = (EventRegistrant) user;
 					}
 				} else if(user.getType().equals(Type.ServerManager.toString())){
+//					System.out.println("TEST 타입 인식:Manager");
 					if(command[0].equalsIgnoreCase("getConcertList")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("getWaitingList")) {
@@ -105,7 +104,7 @@ public class DataListener implements Runnable {
 						manager.addConcert(concert);
 					}
 				} else if(user.getType().equals(Type.EventRegistrant.toString())) {
-					System.out.println("타입 인식");
+//					System.out.println("TEST 타입 인식:ER");
 					if(command[0].equalsIgnoreCase("getRegisteredConcertList")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForApproval")) {
