@@ -7,7 +7,7 @@ import java.util.List;
 import concertManagement.Concert;
 
 //TODO 기능 추가하기.
-public class Manager extends User{
+public class Manager extends User {
 
 	Vector<Concert> registeredConcertList;
 	Vector<Concert> concertsWaitingForApproval;
@@ -27,7 +27,7 @@ public class Manager extends User{
 		int index = -1;
 		while(it.hasNext()) {
 			EventRegistrant eventRegistrant = it.next();
-			System.out.println(eventRegistrant);
+//			System.out.println(eventRegistrant);
 			if((index = eventRegistrant.concertsWaitingForApproval.indexOf(concert)) != -1) {
 				eventRegistrant.concertsWaitingForApproval.remove(index);
 				eventRegistrant.registeredConcertList.add(concert);
@@ -39,7 +39,6 @@ public class Manager extends User{
 				return this.registeredConcertList;
 			}
 		}
-		System.out.println("index : " + index);
 		System.out.println("콘서트 추가 오류");
 		return null;
 	}
@@ -80,9 +79,11 @@ public class Manager extends User{
 		EventRegistrant eventRegistrant;
 		while(it.hasNext()) {
 			User user = it.next();
+//			System.out.println("user : \n" + user);
 			if(user.type.equals(Type.EventRegistrant)) {
 				eventRegistrant = (EventRegistrant) user;
 				eventRegistrantList.add(eventRegistrant);
+//				System.out.println(eventRegistrant.concertsWaitingForApproval.size());
 				for(int i = 0; i < eventRegistrant.concertsWaitingForApproval.size(); i++) {
 					concertsWaitingForApproval.add(eventRegistrant.concertsWaitingForApproval.get(i));
 				}

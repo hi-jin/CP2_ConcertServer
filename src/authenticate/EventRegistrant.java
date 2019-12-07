@@ -25,12 +25,12 @@ public class EventRegistrant extends Customer {
 	public Vector<Concert> requestRegistration(Concert concert) {
 		if(balance > 500) {
 			concertsWaitingForApproval.add(concert);
+			System.out.println("등록 요청\n" + concert);
+			return concertsWaitingForApproval;
 		} else {
 			System.out.println("잔액부족" + balance);
 			return null;
 		}
-		System.out.println("등록 요청\n" + concert);
-		return concertsWaitingForApproval;
 	}
 	
 	public Vector<Concert> cancelRequest(Concert concert) {
