@@ -1,8 +1,9 @@
 package concertManagement;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Concert {
+public class Concert implements Serializable {
 
 	private String title;
 	private String description;

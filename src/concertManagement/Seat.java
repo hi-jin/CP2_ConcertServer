@@ -1,6 +1,8 @@
 package concertManagement;
 
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
 
 	private int numberOfSeat;
 
