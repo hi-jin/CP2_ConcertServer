@@ -58,6 +58,7 @@ public class DataListener implements Runnable {
 							System.out.println("로그인 실패");
 						} else {
 							System.out.println("로그인\n" + user.getName() + "/" + user.getId() + "/" + user.getContact() + "/" + user.getType());
+							out.println(user.getName() + "/" + user.getId() + "/" + user.getContact() + "/" + user.getType());
 							if(user.getType().equals(Type.ServerManager.toString())) {
 								manager = (Manager) user;
 //								TODO
@@ -74,13 +75,17 @@ public class DataListener implements Runnable {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("addManager")) {
 						user = new Manager(command[1], command[2], command[3], command[4]);
-						FileIO.addUser(user);
-						manager = (Manager) user;
+						if(!FileIO.addUser(user)) {
+							out.println("-1");
+						}
+						user = null;
 					} else if(command[0].equalsIgnoreCase("addEventRegistrant")) {
 						// inputLine = addEventRegistrant/name/id/pw/contact
 						user = new EventRegistrant(command[1], command[2], command[3], command[4]);
-						FileIO.addUser(user);
-						eventRegistrant = (EventRegistrant) user;
+						if(!FileIO.addUser(user)) {
+							out.println("-1");
+						}
+						user = null;
 					}
 				} else if(user.getType().equals(Type.ServerManager.toString())){
 //					System.out.println("TEST 타입 인식:Manager");
