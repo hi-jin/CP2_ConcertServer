@@ -73,6 +73,7 @@ public class DataListener implements Runnable {
 					} else if(command[0].equalsIgnoreCase("addAudience")) {
 						// inputLine = add~/name/id/pw/contact
 //						TODO
+						continue;
 					} else if(command[0].equalsIgnoreCase("addManager")) {
 						user = new Manager(command[1], command[2], command[3], command[4]);
 						if(!FileIO.addUser(user)) {
@@ -81,15 +82,17 @@ public class DataListener implements Runnable {
 							out.println("1");
 						}
 						user = null;
+						continue;
 					} else if(command[0].equalsIgnoreCase("addEventRegistrant")) {
 						// inputLine = addEventRegistrant/name/id/pw/contact
 						user = new EventRegistrant(command[1], command[2], command[3], command[4]);
 						if(!FileIO.addUser(user)) {
 							out.println("-1");
 						} else {
-							out.println("1");
+							out.println("1"); 
 						}
 						user = null;
+						continue;
 					}
 				} else if(user.getType().equals(Type.ServerManager.toString())){
 //					System.out.println("TEST 타입 인식:Manager");
