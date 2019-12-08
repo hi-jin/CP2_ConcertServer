@@ -117,7 +117,6 @@ public class DataListener implements Runnable {
 						manager.addConcert(concert);
 					}
 				} else if(user.getType().equals(Type.EventRegistrant.toString())) {
-					System.out.println(Arrays.deepToString(command));
 //					System.out.println("TEST 타입 인식:ER");
 					if(command[0].equalsIgnoreCase("getRegisteredConcertList")) {
 //						TODO

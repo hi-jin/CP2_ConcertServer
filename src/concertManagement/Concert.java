@@ -6,7 +6,6 @@ import java.util.Date;
 public class Concert implements Serializable {
 
 	private String title;
-	private String description;
 	private String date;
 	private Seat seat;
 	
@@ -37,13 +36,13 @@ public class Concert implements Serializable {
 	}
 	
 	public String toString() {
-		return "title : " + this.title + "\ndescription : " + this.description + "\ndate : " + this.date + "\nseat : " + this.seat;
+		return "title : " + this.title + "\ndate : " + this.date + "\nseat : " + this.seat;
 	}
 	
 	@Override
 	public boolean equals(Object o) {
 		Concert c = (Concert) o;
-		if(this.title.equals(c.title) && this.description.equals(c.description) && this.date.equals(c.date) && this.seat.equals(c.seat))
+		if(this.title.equals(c.title) && this.date.equals(c.date) && this.seat.equals(c.seat))
 			return true;
 		return false;
 	}
