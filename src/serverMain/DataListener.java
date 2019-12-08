@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 import authenticate.*;
 import concertManagement.Concert;
@@ -103,19 +104,20 @@ public class DataListener implements Runnable {
 					} else if(command[0].equalsIgnoreCase("getCancelList")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("cancelConcert")) {
-						// inputLine = cancelConcert/title/description/20190212/numOfSeat
+						// inputLine = cancelConcert/title/20190212/numOfSeat
 						Concert concert = new Concert(
-								command[1], command[2], command[3],
-								new Seat(Integer.parseInt(command[4])));
+								command[1], command[2],
+								new Seat(Integer.parseInt(command[3])));
 						manager.cancelConcert(concert);
 					} else if(command[0].equalsIgnoreCase("addConcert")) {
-						// inputLine = addConcert/title/description/20190212/numOfSeat
+						// inputLine = addConcert/title/20190212/numOfSeat
 						Concert concert = new Concert(
-								command[1], command[2], command[3],
-								new Seat(Integer.parseInt(command[4])));
+								command[1], command[2],
+								new Seat(Integer.parseInt(command[3])));
 						manager.addConcert(concert);
 					}
 				} else if(user.getType().equals(Type.EventRegistrant.toString())) {
+					System.out.println(Arrays.deepToString(command));
 //					System.out.println("TEST 타입 인식:ER");
 					if(command[0].equalsIgnoreCase("getRegisteredConcertList")) {
 //						TODO
@@ -124,18 +126,18 @@ public class DataListener implements Runnable {
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForCancel")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("requestRegistration")) {
-						// inputLine = requestRegistration/title/description/20190212/numOfSeat
+						// inputLine = requestRegistration/title/20190212/numOfSeat
 						Concert concert = new Concert(
-												command[1], command[2], command[3],
-												new Seat(Integer.parseInt(command[4])));
+									command[1], command[2],
+									new Seat(Integer.parseInt(command[3])));
 						System.out.println("request");
 						eventRegistrant.requestRegistration(concert);
 						out.println(1);
 					} else if(command[0].equalsIgnoreCase("cancelRequest")) {
-						// inputLine = requestRegistration/title/description/20190212/numOfSeat
+						// inputLine = requestRegistration/title/20190212/numOfSeat
 						Concert concert = new Concert(
-								command[1], command[2], command[3],
-								new Seat(Integer.parseInt(command[4])));
+								command[1], command[2],
+								new Seat(Integer.parseInt(command[3])));
 						eventRegistrant.cancelRequest(concert);
 						out.println(1);
 					}
