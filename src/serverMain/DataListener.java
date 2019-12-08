@@ -77,6 +77,8 @@ public class DataListener implements Runnable {
 						user = new Manager(command[1], command[2], command[3], command[4]);
 						if(!FileIO.addUser(user)) {
 							out.println("-1");
+						} else {
+							out.println("1");
 						}
 						user = null;
 					} else if(command[0].equalsIgnoreCase("addEventRegistrant")) {
@@ -84,6 +86,8 @@ public class DataListener implements Runnable {
 						user = new EventRegistrant(command[1], command[2], command[3], command[4]);
 						if(!FileIO.addUser(user)) {
 							out.println("-1");
+						} else {
+							out.println("1");
 						}
 						user = null;
 					}
