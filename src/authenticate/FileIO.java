@@ -16,7 +16,7 @@ import java.util.Vector;
 public class FileIO {
 
 	private static final File userObj = new File("./user.obj");
-	private static List<User> userList = new Vector<>();
+	private static List<User> userList;
 	
 	public static List<User> getUserList() {
 		return userList;
@@ -24,7 +24,7 @@ public class FileIO {
 	
 	public synchronized static void readUserList() throws IOException {
 		ObjectInputStream in = null;
-		
+		userList = new Vector<>();
 		try {
 			in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));
 			userList = (List<User>) in.readObject();
