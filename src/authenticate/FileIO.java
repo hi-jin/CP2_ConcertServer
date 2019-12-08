@@ -16,7 +16,7 @@ import java.util.Vector;
 public class FileIO {
 
 	private static final File userObj = new File("./user.obj");
-	private static List<User> userList;
+	private static List<User> userList = new Vector<>();
 	
 	public static List<User> getUserList() {
 		return userList;
@@ -24,7 +24,7 @@ public class FileIO {
 	
 	public synchronized static void readUserList() throws IOException {
 		ObjectInputStream in = null;
-		userList = new Vector<>();
+		
 		try {
 			in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userObj)));
 			userList = (List<User>) in.readObject();
@@ -36,11 +36,12 @@ public class FileIO {
 	}
 	
 	public synchronized static void updateUser(User user) throws IOException {
-		for(int i = 0; i < userList.size(); i++) {
-			if((userList.get(i).id).equals(user.id)) {
-				userList.set(i, user);
-			}
-		}
+		ObjectOutputStream out = null;
+		out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
+		
+		out.writeObject(userList);
+		
+		out.close();
 	}
 	
 	public synchronized static boolean addUser(User user) throws IOException {
@@ -52,12 +53,6 @@ public class FileIO {
 			}
 		}
 		userList.add(user);
-		ObjectOutputStream out = null;
-		out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
-		
-		out.writeObject(userList);
-		
-		out.close();
 		
 		System.out.println(Thread.currentThread().getName() + " 회원가입 성공");
 		return true;
@@ -79,9 +74,6 @@ public class FileIO {
 	
 	public synchronized static void logout(User user) throws IOException {
 		updateUser(user);
-		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userObj)));
-		out.writeObject(userList);
-		out.close();
 		
 		System.out.println(Thread.currentThread().getName() + " 로그아웃 성공");
 	}
