@@ -55,7 +55,7 @@ public class DataListener implements Runnable {
 						// inputLine = login/id/pw
 						user = FileIO.login(command[1], command[2]);
 						if(user == null) {
-							out.write(-1); // 로그인 실패할 경우 -1을 보낸다.
+							out.println("-1"); // 로그인 실패할 경우 -1을 보낸다.
 							System.out.println("로그인 실패");
 						} else {
 							System.out.println("로그인\n" + user.getName() + "/" + user.getId() + "/" + user.getContact() + "/" + user.getType());
@@ -124,12 +124,22 @@ public class DataListener implements Runnable {
 //					System.out.println("TEST 타입 인식:ER");
 					if(command[0].equalsIgnoreCase("getRegisteredConcertList")) {
 //						TODO
+					} else if(command[0].equalsIgnoreCase("getAllConcertList")) {
+						StringBuilder string = new StringBuilder();
+						for(int i = 0; i < manager.getConcertList().size(); i++) {
+							string.append("//");
+							string.append(manager.getConcertList().get(i).getTitle() + "/");
+							string.append(manager.getConcertList().get(i).getSeat() + "/");
+							string.append(manager.getConcertList().get(i).getDate());
+						}
+						string.delete(0, 2);
+						out.println(string.toString());
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForApproval")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForCancel")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("requestRegistration")) {
-						// inputLine = requestRegistration/title/20190212/numOfSeat
+						// inputLine = requestRegistration/title/2019-02-12/numOfSeat
 						Concert concert = new Concert(
 									command[1], command[2],
 									new Seat(Integer.parseInt(command[3])));
@@ -137,7 +147,7 @@ public class DataListener implements Runnable {
 						eventRegistrant.requestRegistration(concert);
 						out.println(1);
 					} else if(command[0].equalsIgnoreCase("cancelRequest")) {
-						// inputLine = requestRegistration/title/20190212/numOfSeat
+						// inputLine = requestRegistration/title/2019-02-12/numOfSeat
 						Concert concert = new Concert(
 								command[1], command[2],
 								new Seat(Integer.parseInt(command[3])));
