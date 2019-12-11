@@ -38,25 +38,13 @@ public class Manager extends User {
 	}
 
 	public Vector<Concert> addConcert(Concert concert) {
-		this.getWaitingList();
-		Iterator<EventRegistrant> it = eventRegistrantList.iterator();
-		int index = -1;
-		while(it.hasNext()) {
-			EventRegistrant eventRegistrant = it.next();
-//			System.out.println(eventRegistrant);
-			if((index = eventRegistrant.concertsWaitingForApproval.indexOf(concert)) != -1) {
-				eventRegistrant.concertsWaitingForApproval.remove(index);
-				eventRegistrant.registeredConcertList.add(concert);
-				
-				index = this.concertsWaitingForApproval.indexOf(concert);
-				this.concertsWaitingForApproval.remove(index);
-				this.registeredConcertList.add(concert);
-				System.out.println("추가 완료\n" + concert);
-				return this.registeredConcertList;
-			}
-		}
-		System.out.println("콘서트 추가 오류");
-		return null;
+		EventRegistrant er = concert.getEventRegistrant();
+		er.getRegisteredConcertList().add(concert);
+		er.getConcertsWaitingForApproval().remove(concert);
+		this.concertsWaitingForApproval.remove(concert);
+		this.registeredConcertList.add(concert);
+		
+		return registeredConcertList;
 	}
 	
 	public Vector<Concert> cancelConcert(Concert concert) {
@@ -79,32 +67,11 @@ public class Manager extends User {
 	}
 	
 	public Vector<Concert> getConcertList() {
-		Iterator<Concert> it = registeredConcertList.iterator();
-//		while(it.hasNext()) {
-//			System.out.println(it.next());
-//		}
-		
 		return registeredConcertList;
 	}
 	
 //	TODO printWaitingList method
 	public Vector<Concert> getWaitingList() {
-//		List<User> userList = FileIO.getUserList();
-//		Iterator<User> it = userList.iterator();
-//
-//		EventRegistrant eventRegistrant;
-//		while(it.hasNext()) {
-//			User user = it.next();
-////			System.out.println("user : \n" + user);
-//			if(user.type.equals(Type.EventRegistrant)) {
-//				eventRegistrant = (EventRegistrant) user;
-//				eventRegistrantList.add(eventRegistrant);
-////				System.out.println(eventRegistrant.concertsWaitingForApproval.size());
-//				for(int i = 0; i < eventRegistrant.concertsWaitingForApproval.size(); i++) {
-//					concertsWaitingForApproval.add(eventRegistrant.concertsWaitingForApproval.get(i));
-//				}
-//			}
-//		}
 		return concertsWaitingForApproval;
 	}
 	

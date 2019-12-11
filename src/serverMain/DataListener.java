@@ -153,6 +153,7 @@ public class DataListener implements Runnable {
 									command[1], command[2],
 									new Seat(Integer.parseInt(command[3])));
 						System.out.println("request");
+						concert.setEventRegistrant(eventRegistrant);
 						eventRegistrant.requestRegistration(concert);
 						manager.getWaitingList().add(concert);
 						out.println(1);

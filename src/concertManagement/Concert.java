@@ -3,11 +3,14 @@ package concertManagement;
 import java.io.Serializable;
 import java.util.Date;
 
+import authenticate.EventRegistrant;
+
 public class Concert implements Serializable {
 
 	private String title;
 	private String date;
 	private Seat seat;
+	private EventRegistrant eventRegistrant;
 	
 	public Concert(String title, String date, Seat seat) {
 		super();
@@ -24,6 +27,12 @@ public class Concert implements Serializable {
 	}
 	public Seat getSeat() {
 		return seat;
+	}
+	public EventRegistrant getEventRegistrant() {
+		return eventRegistrant;
+	}
+	public void setEventRegistrant(EventRegistrant er) {
+		this.eventRegistrant = er;
 	}
 	public void setTitle(String title) {
 		this.title = title;
