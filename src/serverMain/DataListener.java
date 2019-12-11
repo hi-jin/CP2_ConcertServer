@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.Vector;
 
 import authenticate.*;
 import concertManagement.Concert;
@@ -113,11 +114,13 @@ public class DataListener implements Runnable {
 //					System.out.println("TEST 타입 인식:Manager");
 					if(command[0].equalsIgnoreCase("getWaitingList")) {
 						StringBuilder string = new StringBuilder();
-						for(int i = 0; i < manager.getWaitingList().size(); i++) {
+						Vector<Concert> waitingList = manager.getWaitingList();
+						for(int i = 0; i < waitingList.size(); i++) {
+							Concert waitingConcert = waitingList.get(i);
 							string.append("//");
-							string.append(manager.getWaitingList().get(i).getTitle() + "/");
-							string.append(manager.getWaitingList().get(i).getSeat().getNumberOfSeat() + "/");
-							string.append(manager.getWaitingList().get(i).getDate());
+							string.append(waitingConcert.getTitle() + "/");
+							string.append(waitingConcert.getSeat().getNumberOfSeat() + "/");
+							string.append(waitingConcert.getDate());
 						}
 						string.delete(0, 2);
 						out.println(string.toString());
@@ -151,6 +154,7 @@ public class DataListener implements Runnable {
 									new Seat(Integer.parseInt(command[3])));
 						System.out.println("request");
 						eventRegistrant.requestRegistration(concert);
+						manager.getWaitingList().add(concert);
 						out.println(1);
 					} else if(command[0].equalsIgnoreCase("cancelRequest")) {
 						// inputLine = requestRegistration/title/2019-02-12/numOfSeat

@@ -89,22 +89,22 @@ public class Manager extends User {
 	
 //	TODO printWaitingList method
 	public Vector<Concert> getWaitingList() {
-		List<User> userList = FileIO.getUserList();
-		Iterator<User> it = userList.iterator();
-
-		EventRegistrant eventRegistrant;
-		while(it.hasNext()) {
-			User user = it.next();
-//			System.out.println("user : \n" + user);
-			if(user.type.equals(Type.EventRegistrant)) {
-				eventRegistrant = (EventRegistrant) user;
-				eventRegistrantList.add(eventRegistrant);
-//				System.out.println(eventRegistrant.concertsWaitingForApproval.size());
-				for(int i = 0; i < eventRegistrant.concertsWaitingForApproval.size(); i++) {
-					concertsWaitingForApproval.add(eventRegistrant.concertsWaitingForApproval.get(i));
-				}
-			}
-		}
+//		List<User> userList = FileIO.getUserList();
+//		Iterator<User> it = userList.iterator();
+//
+//		EventRegistrant eventRegistrant;
+//		while(it.hasNext()) {
+//			User user = it.next();
+////			System.out.println("user : \n" + user);
+//			if(user.type.equals(Type.EventRegistrant)) {
+//				eventRegistrant = (EventRegistrant) user;
+//				eventRegistrantList.add(eventRegistrant);
+////				System.out.println(eventRegistrant.concertsWaitingForApproval.size());
+//				for(int i = 0; i < eventRegistrant.concertsWaitingForApproval.size(); i++) {
+//					concertsWaitingForApproval.add(eventRegistrant.concertsWaitingForApproval.get(i));
+//				}
+//			}
+//		}
 		return concertsWaitingForApproval;
 	}
 	
