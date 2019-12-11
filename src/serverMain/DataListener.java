@@ -22,7 +22,7 @@ public class DataListener implements Runnable {
 	public void run() {
 		try {
 			User 			user = null;
-			Manager 		manager = null;
+			Manager			manager = Main.manager;
 			EventRegistrant eventRegistrant = null;
 //			TODO
 //			Audience 		audience = null;
@@ -76,7 +76,11 @@ public class DataListener implements Runnable {
 //						TODO
 						continue;
 					} else if(command[0].equalsIgnoreCase("addManager")) {
-						user = new Manager(command[1], command[2], command[3], command[4]);
+						manager.setName(command[1]);
+						manager.setId(command[2]);
+						manager.setPw(command[3]);
+						manager.setContact(command[4]);
+						user = manager;
 						if(!FileIO.addUser(user)) {
 							out.println("-1");
 						} else {

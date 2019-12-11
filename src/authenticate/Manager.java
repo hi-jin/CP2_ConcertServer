@@ -20,6 +20,22 @@ public class Manager extends User {
 		concertsWaitingForApproval = new Vector<>();
 		eventRegistrantList = new Vector<>();
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
 	public Vector<Concert> addConcert(Concert concert) {
 		this.getWaitingList();

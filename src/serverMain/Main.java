@@ -5,14 +5,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import authenticate.FileIO;
+import authenticate.Manager;
 
 public class Main {
 
+	static Manager manager;
+	
 	public static void main(String[] args) throws IOException {
 		Socket 			clientSocket = null;
 		ServerSocket 	serverSocket = null;
 		
 		FileIO.readUserList();
+		
+		manager = new Manager("defualtManager", "defualtManager", "defualtManager", "defualtManager");
 			try {
 				serverSocket = new ServerSocket(50000);
 				
