@@ -116,7 +116,7 @@ public class DataListener implements Runnable {
 						for(int i = 0; i < manager.getWaitingList().size(); i++) {
 							string.append("//");
 							string.append(manager.getWaitingList().get(i).getTitle() + "/");
-							string.append(manager.getWaitingList().get(i).getSeat() + "/");
+							string.append(manager.getWaitingList().get(i).getSeat().getNumberOfSeat() + "/");
 							string.append(manager.getWaitingList().get(i).getDate());
 						}
 						string.delete(0, 2);
