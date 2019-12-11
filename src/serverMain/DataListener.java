@@ -119,8 +119,8 @@ public class DataListener implements Runnable {
 							Concert waitingConcert = waitingList.get(i);
 							string.append("//");
 							string.append(waitingConcert.getTitle() + "/");
-							string.append(waitingConcert.getSeat().getNumberOfSeat() + "/");
-							string.append(waitingConcert.getDate());
+							string.append(waitingConcert.getDate() + "/");
+							string.append(waitingConcert.getSeat().getNumberOfSeat());
 						}
 						string.delete(0, 2);
 						out.println(string.toString());
