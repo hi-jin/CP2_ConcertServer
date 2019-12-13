@@ -3,9 +3,11 @@ package serverMain;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
 
 import authenticate.FileIO;
 import authenticate.Manager;
+import authenticate.User;
 
 public class Main {
 
@@ -15,9 +17,17 @@ public class Main {
 		Socket 			clientSocket = null;
 		ServerSocket 	serverSocket = null;
 		
-		FileIO.readUserList();
-		
 		manager = new Manager("defualtManager", "defualtManager", "defualtManager", "defualtManager");
+		
+		FileIO.readUserList();
+		Iterator<User> it = FileIO.getUserList().iterator();
+		while(it.hasNext()) {
+			User user = it.next();
+			if(user.getType().equals(authenticate.Type.ServerManager.toString())) {
+				manager = (Manager) user;
+				break;
+			}
+		}
 			try {
 				serverSocket = new ServerSocket(50000);
 				

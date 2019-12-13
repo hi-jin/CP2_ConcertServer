@@ -1,6 +1,7 @@
 	package authenticate;
 
 import java.util.Vector;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Manager extends User {
 		super(name, id, pw, contact, Type.ServerManager);
 		registeredConcertList = new Vector<>();
 		concertsWaitingForApproval = new Vector<>();
+		concertsWaitingForCancel = new Vector<>();
 		eventRegistrantList = new Vector<>();
 	}
 	
@@ -39,31 +41,26 @@ public class Manager extends User {
 
 	public Vector<Concert> addConcert(Concert concert) {
 		EventRegistrant er = concert.getEventRegistrant();
+		System.out.println(er);
 		er.getRegisteredConcertList().add(concert);
 		er.getConcertsWaitingForApproval().remove(concert);
 		this.concertsWaitingForApproval.remove(concert);
 		this.registeredConcertList.add(concert);
 		
+		System.out.println(Arrays.deepToString(registeredConcertList.toArray()));
 		return registeredConcertList;
 	}
 	
 	public Vector<Concert> cancelConcert(Concert concert) {
-		Iterator<EventRegistrant> it = eventRegistrantList.iterator();
-		int index = -1;
-		while(it.hasNext()) {
-			EventRegistrant eventRegistrant = it.next();
-			if((index = eventRegistrant.concertsWaitingForCancel.indexOf(concert)) != -1) {
-				eventRegistrant.concertsWaitingForCancel.remove(index);
-				eventRegistrant.registeredConcertList.remove(concert);
-				
-				index = this.concertsWaitingForCancel.indexOf(concert);
-				this.concertsWaitingForCancel.remove(index);
-				this.registeredConcertList.remove(concert);
-				System.out.println("취소 완료\n" + concert);
-				break;
-			}
-		}
-		return this.registeredConcertList;
+		EventRegistrant er = concert.getEventRegistrant();
+		System.out.println(er);
+		er.getRegisteredConcertList().remove(concert);
+		er.getConcertsWaitingForCancel().remove(concert);
+		this.concertsWaitingForCancel.remove(concert);
+		this.registeredConcertList.remove(concert);
+		
+		System.out.println(Arrays.deepToString(registeredConcertList.toArray()));
+		return registeredConcertList;
 	}
 	
 	public Vector<Concert> getConcertList() {
@@ -76,19 +73,6 @@ public class Manager extends User {
 	}
 	
 	public Vector<Concert> getCancelList() {
-		List<User> userList = FileIO.getUserList();
-		Iterator<User> it = userList.iterator();
-
-		EventRegistrant eventRegistrant;
-		while(it.hasNext()) {
-			User user = it.next();
-			if(user.type.equals(Type.EventRegistrant)) {
-				eventRegistrant = (EventRegistrant) user;
-				for(int i = 0; i < eventRegistrant.concertsWaitingForCancel.size(); i++) {
-					concertsWaitingForApproval.add(eventRegistrant.concertsWaitingForCancel.get(i));
-				}
-			}
-		}
 		return concertsWaitingForCancel;
 	}
 }

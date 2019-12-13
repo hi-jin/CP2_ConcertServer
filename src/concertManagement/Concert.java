@@ -12,6 +12,14 @@ public class Concert implements Serializable {
 	private Seat seat;
 	private EventRegistrant eventRegistrant;
 	
+	public Concert(String title, String date, Seat seat, EventRegistrant eventRegistrant) {
+		super();
+		this.title = title;
+		this.date = date; // 20190212
+		this.seat = seat;
+		this.eventRegistrant = eventRegistrant;
+	}
+	
 	public Concert(String title, String date, Seat seat) {
 		super();
 		this.title = title;
