@@ -25,8 +25,8 @@ public class DataListener implements Runnable {
 			User 			user = null;
 			Manager			manager = Main.manager;
 			EventRegistrant eventRegistrant = null;
+			Audience 		audience = null;
 //			TODO
-//			Audience 		audience = null;
 			
 			PrintStream out = new PrintStream(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(
@@ -74,13 +74,18 @@ public class DataListener implements Runnable {
 								eventRegistrant = (EventRegistrant) user;
 //								TODO
 							} else if(user.getType().equals(Type.Audience.toString())) {
-//								audience = (Audience) user;
+								audience = (Audience) user;
 //								TODO
 							}
 						}
 					} else if(command[0].equalsIgnoreCase("addAudience")) {
-						// inputLine = add~/name/id/pw/contact
-//						TODO
+						user = new Audience(command[1], command[2], command[3], command[4]);
+						if(!FileIO.addUser(user)) {
+							out.println("-1");
+						} else {
+							out.println("1");
+						}
+						user = null;
 						continue;
 					} else if(command[0].equalsIgnoreCase("addManager")) {
 						manager.setName(command[1]);
@@ -186,7 +191,26 @@ public class DataListener implements Runnable {
 						out.println(1);
 					}
 				} else if(user.getType().equals(Type.Audience.toString())) {
-//					TODO
+					if(command[0].equalsIgnoreCase("getReservedConcertList")) {
+						StringBuilder string = new StringBuilder();
+						for(int i = 0; i < audience.getReservedConcertList().size(); i++) {
+							string.append("//");
+							string.append(audience.getReservedConcertList().get(i).getTitle() + "/");
+							string.append(audience.getReservedConcertList().get(i).getSeat().getNumberOfSeat() + "/");
+							string.append(audience.getReservedConcertList().get(i).getDate() + "/");
+							string.append(audience.getSeatNumList().get(i));
+						}
+						string.delete(0, 2);
+						System.out.println(string.toString());
+						out.println(string.toString());
+					} else if(command[0].equalsIgnoreCase("reserveSeat")) {
+						// inputLine = reserveSeat/index/seatNum
+						if(audience.reserveSeat(manager.getConcertList().get(Integer.parseInt(command[1])), Integer.parseInt(command[2]))) {
+							out.println("1");
+						} else {
+							out.println("2");
+						}
+					}
 				}
 				FileIO.updateUser(user);
 			}
