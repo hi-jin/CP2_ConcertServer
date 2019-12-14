@@ -117,7 +117,10 @@ public class DataListener implements Runnable {
 						string.append("//");
 						string.append(manager.getConcertList().get(i).getTitle() + "/");
 						string.append(manager.getConcertList().get(i).getSeat().getNumberOfSeat() + "/");
-						string.append(manager.getConcertList().get(i).getDate());
+						string.append(manager.getConcertList().get(i).getDate() + "/");
+						string.append(Arrays.toString(manager.getConcertList().get(i).getSeat().getSeats()) + "/");
+						string.append(manager.getConcertList().get(i).getSeat().getReservedSeatCount());
+//						좌석 현황도 보내도록 업데이트 하기.
 					}
 					string.delete(0, 2);
 					System.out.println(string.toString());

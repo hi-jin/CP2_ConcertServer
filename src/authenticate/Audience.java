@@ -17,11 +17,11 @@ public class Audience extends Customer {
 	
 	public boolean reserveSeat(Concert concert, int seatNum) {
 		if(concert.getSeat().setSeat(seatNum)) {
-			return false;
-		} else {
 			reservedConcertList.add(concert);
 			seatNumList.add(seatNum);
 			return true;
+		} else {
+			return false;
 		}
 	}
 	
