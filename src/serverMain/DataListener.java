@@ -228,8 +228,6 @@ public class DataListener extends Thread {
 							manager.setMsgFromServer("콘서트 취소 요청이 있습니다. " + "제목 : " + concert.getTitle());
 							manager.getCancelList().add(concert);
 						}
-						out.println(1);
-						out.flush();
 					}
 				} else if(user.getType().equals(Type.Audience.toString())) {
 					if(command[0].equalsIgnoreCase("getReservedConcertList")) {
