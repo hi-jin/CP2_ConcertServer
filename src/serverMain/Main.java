@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
+import java.util.Vector;
 
 import authenticate.FileIO;
 import authenticate.Manager;
@@ -12,10 +13,22 @@ import authenticate.User;
 public class Main {
 
 	static Manager manager;
+	static final int EVENT_REQUEST_FEE_PER_SEAT = 1000;
+	
+	private static Vector<DataListener> clientList = null;
+	
+	public static int getEventFee() {
+		return EVENT_REQUEST_FEE_PER_SEAT;
+	}
+	
+	public static Manager getManager() {
+		return manager;
+	}
 	
 	public static void main(String[] args) throws IOException {
 		Socket 			clientSocket = null;
 		ServerSocket 	serverSocket = null;
+		clientList = new Vector<>();
 		
 		manager = new Manager("defualtManager", "defualtManager", "defualtManager", "defualtManager");
 		
@@ -35,7 +48,8 @@ public class Main {
 					clientSocket = serverSocket.accept();
 					System.out.println("Client From : " + clientSocket.getInetAddress());
 					
-					Thread client = new Thread(new DataListener(clientSocket));
+					Thread client = new DataListener(clientSocket);
+					
 					client.setName("Client " + clientSocket.getInetAddress());
 					client.start();
 				}

@@ -2,6 +2,8 @@ package authenticate;
 
 import java.io.Serializable;
 
+import concertManagement.Concert;
+
 public abstract class User implements Serializable {
 
 	String 	name;
@@ -9,13 +11,34 @@ public abstract class User implements Serializable {
 	String 	pw;
 	String 	contact; // phone-number
 	Type 	type;
+	int		balance;
+	String	msgFromServer = "";
 	
-	public User(String name, String id, String pw, String contact, Type type) {
+	public User(String name, String id, String pw, String contact, Type type, int balance) {
 		this.name = name;
 		this.id = id;
 		this.pw = pw;
 		this.contact = contact;
 		this.type = type;
+		this.balance = balance;
+	}
+	
+	public int chargeMoney(int amount) {
+		if(amount > 0) {
+			balance += amount;
+			return balance;
+		} else {
+			return -1;
+		}
+	}
+	
+	public int refundMoney(int amount) {
+		if(balance - amount >= 0 && amount > 0) {
+			balance -= amount;
+			return balance;
+		} else {
+			return -1;
+		}
 	}
 	
 	public String toString() {
@@ -40,5 +63,29 @@ public abstract class User implements Serializable {
 
 	public String getContact() {
 		return contact;
+	}
+	
+	public String getMsgFromServer() {
+		return msgFromServer;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+	
+	public void setMsgFromServer(String msg) {
+		this.msgFromServer += msg + "=";
+	}
+	
+	public void clearMsg() {
+		this.msgFromServer = "";
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		User c = (User) o;
+		if(this.id.equals(c.id) && this.pw.equals(c.pw))
+			return true;
+		return false;
 	}
 }

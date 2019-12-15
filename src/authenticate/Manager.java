@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import concertManagement.Concert;
+import serverMain.Main;
 
 //TODO 기능 추가하기.
 public class Manager extends User {
@@ -16,7 +17,7 @@ public class Manager extends User {
 	Vector<EventRegistrant> eventRegistrantList;
 	
 	public Manager(String name, String id, String pw, String contact) {
-		super(name, id, pw, contact, Type.ServerManager);
+		super(name, id, pw, contact, Type.ServerManager, 0);
 		registeredConcertList = new Vector<>();
 		concertsWaitingForApproval = new Vector<>();
 		concertsWaitingForCancel = new Vector<>();
@@ -39,6 +40,14 @@ public class Manager extends User {
 		this.contact = contact;
 	}
 
+	public void receivePayment(int amount) {
+		this.balance += amount;
+	}
+	
+	public void pay(int amount) {
+		this.balance -= amount;
+	}
+	
 	public Vector<Concert> addConcert(Concert concert) {
 		EventRegistrant er = concert.getEventRegistrant();
 		System.out.println(er);
@@ -74,5 +83,22 @@ public class Manager extends User {
 	
 	public Vector<Concert> getCancelList() {
 		return concertsWaitingForCancel;
+	}
+	
+	public int rejectAddRequest(Concert concert) {
+		EventRegistrant er = concert.getEventRegistrant();
+		this.concertsWaitingForApproval.remove(concert);
+		er.concertsWaitingForApproval.remove(concert);
+		int receiveAmount = (int)(concert.getSeat().getNumberOfSeat() * Main.getEventFee() * 2 / 3.0);
+		this.pay(receiveAmount);
+		er.receivePayment(receiveAmount);
+		
+		return balance;
+	}
+
+	public void rejectCancelRequest(Concert concert) {
+		EventRegistrant er = concert.getEventRegistrant();
+		this.concertsWaitingForCancel.remove(concert);
+		er.concertsWaitingForCancel.remove(concert);
 	}
 }

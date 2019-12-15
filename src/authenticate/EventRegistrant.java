@@ -3,6 +3,7 @@ package authenticate;
 import java.util.Vector;
 
 import concertManagement.Concert;
+import serverMain.Main;
 
 public class EventRegistrant extends Customer {
 
@@ -11,7 +12,7 @@ public class EventRegistrant extends Customer {
 	Vector<Concert> concertsWaitingForCancel;
 	
 	public EventRegistrant(String name, String id, String pw, String contact) {
-		super(name, id, pw, contact, Type.EventRegistrant, 10000);
+		super(name, id, pw, contact, Type.EventRegistrant);
 		registeredConcertList = new Vector<>();
 		concertsWaitingForApproval = new Vector<>();
 		concertsWaitingForCancel = new Vector<>();
@@ -22,18 +23,18 @@ public class EventRegistrant extends Customer {
 		this.concertsWaitingForApproval.remove(concert);
 	}
 	
-	public boolean requestRegistration(Concert concert) {
-		if(balance > 500) {
-			if(concertsWaitingForApproval.contains(concert)) {
-				return false;
-			}
+	public int requestRegistration(Concert concert) {
+		int result;
+		if(concertsWaitingForApproval.contains(concert)) {
+			return -1;
+		}
+		if((result = this.pay(concert.getSeat().getNumberOfSeat() * Main.getEventFee())) < 0) {
+			System.out.println("잔액부족 : " + result);
+		} else {
 			concertsWaitingForApproval.add(concert);
 			System.out.println("등록 요청\n" + concert);
-			return true;
-		} else {
-			System.out.println("잔액부족" + balance);
-			return false;
 		}
+		return result;
 	}
 	
 	public boolean cancelRequest(Concert concert) {

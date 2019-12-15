@@ -1,39 +1,29 @@
 package authenticate;
 
+import serverMain.Main;
+
 public abstract class Customer extends User {
 
-	protected int balance;
-
 	public Customer(String name, String id, String pw, String contact, Type type) {
-		super(name, id, pw, contact, type);
-		balance = 0;
+		super(name, id, pw, contact, type, 0);
 	}
 	
 	public Customer(String name, String id, String pw, String contact, Type type, int balance) {
-		super(name, id, pw, contact, type);
+		super(name, id, pw, contact, type, balance);
 		this.balance = balance;
 	}
 	
-	public int chargeBalance(int amount) {
-		if(balance > 0) {
-			balance += amount;
-			return balance;
-		} else {
-			return -1;
-		}
-		
-	}
-	
 	public int pay(int amount) {
-		if(amount <= balance && amount > 0) {
+		if(amount <= balance) {
 			balance -= amount;
-			return balance;
+			Main.getManager().receivePayment(amount);
+			return amount;
 		} else {
-			return -1;
+			return balance - amount;
 		}
 	}
 	
-	public int printBalance() {
-		return balance;
+	public void receivePayment(int amount) {
+		balance += amount;
 	}
 }
