@@ -67,6 +67,9 @@ public class Manager extends User {
 		er.getConcertsWaitingForCancel().remove(concert);
 		this.concertsWaitingForCancel.remove(concert);
 		this.registeredConcertList.remove(concert);
+		int receiveAmount = (int)(concert.getSeat().getNumberOfSeat() * Main.getEventFee() * 2 / 3.0);
+		this.pay(receiveAmount);
+		er.receivePayment(receiveAmount);
 		
 		System.out.println(Arrays.deepToString(registeredConcertList.toArray()));
 		return registeredConcertList;
@@ -89,7 +92,7 @@ public class Manager extends User {
 		EventRegistrant er = concert.getEventRegistrant();
 		this.concertsWaitingForApproval.remove(concert);
 		er.concertsWaitingForApproval.remove(concert);
-		int receiveAmount = (int)(concert.getSeat().getNumberOfSeat() * Main.getEventFee() * 2 / 3.0);
+		int receiveAmount = (int)(concert.getSeat().getNumberOfSeat() * Main.getEventFee());
 		this.pay(receiveAmount);
 		er.receivePayment(receiveAmount);
 		
