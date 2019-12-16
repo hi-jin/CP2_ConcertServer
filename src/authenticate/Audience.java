@@ -16,8 +16,9 @@ public class Audience extends Customer {
 	}
 	
 	public int reserveSeat(Concert concert, int seatNum) {
-		if(pay(concert.getSeatPrice()) >= 0) {
+		if(concert.getSeatPrice() - balance >= 0) {
 			if(concert.getSeat().setSeat(seatNum, this)) {
+				pay(concert.getSeatPrice());
 				reservedConcertList.add(concert);
 				seatNumList.add(seatNum);
 				concert.getEventRegistrant().receivePayment(concert.getSeatPrice());
