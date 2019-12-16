@@ -44,6 +44,16 @@ public class Seat implements Serializable {
 		return false;
 	}
 	
+	public synchronized boolean cancelSeat(int i) {
+		if(seats[i] == 1) {
+			seats[i] = 0;
+			this.reservedSeatCount--;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public String toString() {
 		return "numberOfSeat : " + this.numberOfSeat + "\nSeats : \n" + Arrays.toString(this.seats);
 	}

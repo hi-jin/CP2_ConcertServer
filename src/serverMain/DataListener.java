@@ -125,8 +125,8 @@ public class DataListener extends Thread {
 						string.append(manager.getConcertList().get(i).getSeat().getNumberOfSeat() + "/");
 						string.append(manager.getConcertList().get(i).getDate() + "/");
 						string.append(Arrays.toString(manager.getConcertList().get(i).getSeat().getSeats()) + "/");
-						string.append(manager.getConcertList().get(i).getSeat().getReservedSeatCount());
-//						좌석 현황도 보내도록 업데이트 하기.
+						string.append(manager.getConcertList().get(i).getSeat().getReservedSeatCount() + "/");
+						string.append(manager.getConcertList().get(i).getSeatPrice() + "");
 					}
 					string.delete(0, 2);
 					System.out.println(string.toString());
@@ -199,7 +199,8 @@ public class DataListener extends Thread {
 							string.append(eventRegistrant.getRegisteredConcertList().get(i).getSeat().getNumberOfSeat() + "/");
 							string.append(eventRegistrant.getRegisteredConcertList().get(i).getDate() + "/");
 							string.append(Arrays.toString(eventRegistrant.getRegisteredConcertList().get(i).getSeat().getSeats()) + "/");
-							string.append(eventRegistrant.getRegisteredConcertList().get(i).getSeat().getReservedSeatCount() + "");
+							string.append(eventRegistrant.getRegisteredConcertList().get(i).getSeat().getReservedSeatCount() + "/");
+							string.append(eventRegistrant.getRegisteredConcertList().get(i).getSeatPrice() + "");
 						}
 						string.delete(0, 2);
 						System.out.println(string.toString());
@@ -210,10 +211,10 @@ public class DataListener extends Thread {
 					} else if(command[0].equalsIgnoreCase("getConcertsWaitingForCancel")) {
 //						TODO
 					} else if(command[0].equalsIgnoreCase("requestRegistration")) {
-						// inputLine = requestRegistration/title/2019-02-12/numOfSeat
+						// inputLine = requestRegistration/title/2019-02-12/numOfSeat/price
 						Concert concert = new Concert(
 									command[1], command[2],
-									new Seat(Integer.parseInt(command[3])), eventRegistrant);
+									new Seat(Integer.parseInt(command[3])), eventRegistrant, Integer.parseInt(command[4]));
 						int result;
 						if((result = eventRegistrant.requestRegistration(concert)) >= 0 ) {
 							manager.setMsgFromServer("콘서트 등록 요청이 있습니다. " + "제목 : " + concert.getTitle());
@@ -237,7 +238,8 @@ public class DataListener extends Thread {
 							string.append(audience.getReservedConcertList().get(i).getTitle() + "/");
 							string.append(audience.getReservedConcertList().get(i).getSeat().getNumberOfSeat() + "/");
 							string.append(audience.getReservedConcertList().get(i).getDate() + "/");
-							string.append(audience.getSeatNumList().get(i));
+							string.append(audience.getSeatNumList().get(i) + "/");
+							string.append(audience.getReservedConcertList().get(i).getSeatPrice() + "");
 						}
 						string.delete(0, 2);
 						System.out.println(string.toString());
@@ -245,12 +247,11 @@ public class DataListener extends Thread {
 						out.flush();
 					} else if(command[0].equalsIgnoreCase("reserveSeat")) {
 						// inputLine = reserveSeat/index/seatNum
-						if(audience.reserveSeat(manager.getConcertList().get(Integer.parseInt(command[1])), Integer.parseInt(command[2]))) {
-							out.println("1");
-						} else {
-							out.println("2");
-						}
+						int result = audience.reserveSeat(manager.getConcertList().get(Integer.parseInt(command[1])), Integer.parseInt(command[2]));
+						out.println(result + "");
 						out.flush();
+					} else if(command[0].equalsIgnoreCase("cancelSeat")) {
+						audience.cancelSeat(Integer.parseInt(command[1]));
 					}
 				}
 				FileIO.updateUser(user);

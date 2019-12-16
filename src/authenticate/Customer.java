@@ -13,15 +13,7 @@ public abstract class Customer extends User {
 		this.balance = balance;
 	}
 	
-	public int pay(int amount) {
-		if(amount <= balance) {
-			balance -= amount;
-			Main.getManager().receivePayment(amount);
-			return amount;
-		} else {
-			return balance - amount;
-		}
-	}
+	abstract public int pay(int amount);
 	
 	public void receivePayment(int amount) {
 		balance += amount;

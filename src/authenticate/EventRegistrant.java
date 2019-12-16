@@ -32,6 +32,7 @@ public class EventRegistrant extends Customer {
 			System.out.println("잔액부족 : " + result);
 		} else {
 			concertsWaitingForApproval.add(concert);
+			Main.getManager().receivePayment(concert.getSeat().getNumberOfSeat() * Main.getEventFee());
 			System.out.println("등록 요청\n" + concert);
 		}
 		return result;
@@ -57,5 +58,15 @@ public class EventRegistrant extends Customer {
 	
 	public Vector<Concert> getConcertsWaitingForCancel() {
 		return concertsWaitingForCancel;
+	}
+	
+	@Override
+	public int pay(int amount) {
+		if(amount <= balance) {
+			balance -= amount;
+			return amount;
+		} else {
+			return balance - amount;
+		}
 	}
 }

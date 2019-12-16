@@ -11,13 +11,15 @@ public class Concert implements Serializable {
 	private String date;
 	private Seat seat;
 	private EventRegistrant eventRegistrant;
+	private int seatPrice;
 	
-	public Concert(String title, String date, Seat seat, EventRegistrant eventRegistrant) {
+	public Concert(String title, String date, Seat seat, EventRegistrant eventRegistrant, int seatPrice) {
 		super();
 		this.title = title;
 		this.date = date; // 20190212
 		this.seat = seat;
 		this.eventRegistrant = eventRegistrant;
+		this.seatPrice = seatPrice;
 	}
 	
 	public Concert(String title, String date, Seat seat) {
@@ -39,6 +41,10 @@ public class Concert implements Serializable {
 	public EventRegistrant getEventRegistrant() {
 		return eventRegistrant;
 	}
+	public int getSeatPrice() {
+		return seatPrice;
+	}
+	
 	public void setEventRegistrant(EventRegistrant er) {
 		this.eventRegistrant = er;
 	}
