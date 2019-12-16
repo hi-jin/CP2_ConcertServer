@@ -48,7 +48,6 @@ public class Seat implements Serializable {
 		if(seats[i] != 1) {
 			seats[i] = 1;
 			this.reservedSeatCount++;
-			this.audienceList[i] = new Audience(null, null, null, null);
 			this.audienceList[i] = audience;
 			return true;
 		}

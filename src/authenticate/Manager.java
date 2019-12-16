@@ -73,7 +73,9 @@ public class Manager extends User {
 		
 		Audience[] audienceList = concert.getSeat().getAudienceList();
 		for(int i = 0; i < audienceList.length; i++) {
-			audienceList[i].cancelSeat(i);
+			if(audienceList[i] != null) {
+				audienceList[i].cancelSeat(i);
+			}
 		}
 		
 		System.out.println(Arrays.deepToString(registeredConcertList.toArray()));
