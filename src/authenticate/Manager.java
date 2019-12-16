@@ -71,6 +71,11 @@ public class Manager extends User {
 		this.pay(receiveAmount);
 		er.receivePayment(receiveAmount);
 		
+		Audience[] audienceList = concert.getSeat().getAudienceList();
+		for(int i = 0; i < audienceList.length; i++) {
+			audienceList[i].cancelSeat(i);
+		}
+		
 		System.out.println(Arrays.deepToString(registeredConcertList.toArray()));
 		return registeredConcertList;
 	}

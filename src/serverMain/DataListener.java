@@ -173,6 +173,10 @@ public class DataListener extends Thread {
 						// inputLine = cancelConcert/index
 						Concert concert = manager.getCancelList().get(Integer.parseInt(command[1]));
 						concert.getEventRegistrant().setMsgFromServer("취소 요청한 콘서트가 취소되었습니다. " + "제목 : " + concert.getTitle());
+						Audience[] audienceList = concert.getSeat().getAudienceList();
+						for(int i = 0; i < audienceList.length; i++) {
+							audienceList[i].setMsgFromServer("예매한 콘서트가 취소되었습니다. " + "제목 : " + concert.getTitle());
+						}
 						manager.cancelConcert(concert);
 					} else if(command[0].equalsIgnoreCase("addConcert")) {
 						// inputLine = addConcert/index
