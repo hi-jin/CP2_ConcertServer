@@ -3,7 +3,6 @@ package authenticate;
 import java.util.Vector;
 
 import concertManagement.Concert;
-import serverMain.Main;
 
 public class Audience extends Customer {
 
@@ -50,15 +49,5 @@ public class Audience extends Customer {
 	
 	public Vector<Integer> getSeatNumList() {
 		return seatNumList;
-	}
-
-	@Override
-	public int pay(int amount) {
-		if(amount <= balance) {
-			balance -= amount;
-			return amount;
-		} else {
-			return balance - amount;
-		}
 	}
 }

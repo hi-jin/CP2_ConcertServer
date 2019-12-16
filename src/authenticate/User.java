@@ -2,8 +2,6 @@ package authenticate;
 
 import java.io.Serializable;
 
-import concertManagement.Concert;
-
 public abstract class User implements Serializable {
 
 	String 	name;
@@ -13,6 +11,8 @@ public abstract class User implements Serializable {
 	Type 	type;
 	int		balance;
 	String	msgFromServer = "";
+	
+	public abstract int pay(int amount);
 	
 	public User(String name, String id, String pw, String contact, Type type, int balance) {
 		this.name = name;

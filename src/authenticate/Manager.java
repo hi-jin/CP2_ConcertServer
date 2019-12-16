@@ -2,9 +2,6 @@
 
 import java.util.Vector;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
 import concertManagement.Concert;
 import serverMain.Main;
 
@@ -44,8 +41,10 @@ public class Manager extends User {
 		this.balance += amount;
 	}
 	
-	public void pay(int amount) {
+	@Override
+	public int pay(int amount) {
 		this.balance -= amount;
+		return amount;
 	}
 	
 	public Vector<Concert> addConcert(Concert concert) {

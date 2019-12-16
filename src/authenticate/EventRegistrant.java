@@ -59,14 +59,4 @@ public class EventRegistrant extends Customer {
 	public Vector<Concert> getConcertsWaitingForCancel() {
 		return concertsWaitingForCancel;
 	}
-	
-	@Override
-	public int pay(int amount) {
-		if(amount <= balance) {
-			balance -= amount;
-			return amount;
-		} else {
-			return balance - amount;
-		}
-	}
 }

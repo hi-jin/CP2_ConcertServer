@@ -1,7 +1,5 @@
 package authenticate;
 
-import serverMain.Main;
-
 public abstract class Customer extends User {
 
 	public Customer(String name, String id, String pw, String contact, Type type) {
@@ -13,7 +11,15 @@ public abstract class Customer extends User {
 		this.balance = balance;
 	}
 	
-	abstract public int pay(int amount);
+	@Override
+	public int pay(int amount) {
+		if(amount <= balance) {
+			balance -= amount;
+			return amount;
+		} else {
+			return balance - amount;
+		}
+	}
 	
 	public void receivePayment(int amount) {
 		balance += amount;
